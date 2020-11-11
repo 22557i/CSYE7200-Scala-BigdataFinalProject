@@ -1,0 +1,37 @@
+[0m[[0m[0minfo[0m] [0m[0m[32mMonadOpsSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLiftFuture[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAsFuture[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSequenceForgiving[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLiftTry[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSequenceWithLogging[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mZip[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mOptionToTry[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSequenceForgivingWithLogging[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSequence[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work3[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work4[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work5[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work6[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mFlattenRecover[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLiftOption[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mMap2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mFlatten[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work3[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work4[0m[0m

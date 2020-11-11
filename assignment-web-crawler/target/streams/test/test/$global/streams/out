@@ -1,0 +1,7 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(edu.neu.coe.csye7200.asstwc.MonadOpsSpec, org.scalatest.tools.Framework$$anon$1@265761e, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(edu.neu.coe.csye7200.asstwc.WebCrawlerSpec, org.scalatest.tools.Framework$$anon$1@265761e, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 5 seconds, 252 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 30[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 2, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 30, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m

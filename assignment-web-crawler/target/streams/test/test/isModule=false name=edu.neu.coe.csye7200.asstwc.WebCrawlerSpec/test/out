@@ -1,0 +1,13 @@
+[0m[[0m[0minfo[0m] [0m[0m[32mWebCrawlerSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mgetURLContent[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should succeed for http://www1.coe.neu.edu/~rhillyard/indexSafe.html[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mwget(URL)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should succeed for http://www1.coe.neu.edu/~rhillyard/indexSafe.html[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should not succeed for http://www1.coe.neu.edu/junk[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should not succeed for http://www1.coe.neu.edu/~rhillyard/indexSafe.html[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mwget(Seq[URL])[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should succeed for http://www1.coe.neu.edu/~rhillyard/indexSafe.html, http://www.google.com/[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mfilterAndFlatten[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should work[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcrawler(Seq[URL])[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should succeed for http://www1.coe.neu.edu/~rhillyard/indexSafe.html, depth 2[0m[0m
