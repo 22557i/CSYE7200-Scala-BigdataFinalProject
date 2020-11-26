@@ -1,11 +1,10 @@
-import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.spark.SparkContext
+import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.types.{DoubleType, IntegerType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 class DataAnalysisController {
   val spark: SparkSession = SparkSession.builder().master("local").getOrCreate()
 
-  // Load data
   def loadData(file: String) = {
     val dataSet = spark.read.
       option("header", "true")
@@ -17,40 +16,57 @@ class DataAnalysisController {
       .na.drop() // delete rows which contains null/ NaN value
       .toDF()
       .cache()
-
+    dataSet.show(5,false)
     dataSet
   }
 
-  // Save spark dataframe
-  def saveFile(df: DataFrame, path: String): Unit = {
-    try {
-      df.coalesce(1).write.option("header", "true").format("csv").save(path)
+  def process(df: DataFrame): DataFrame = {
+    // Transfer the data type
+    val df1 = df
+      .withColumn("longitude", col("longitude").cast(DoubleType))
+      .withColumn("latitude", col("latitude").cast(DoubleType))
+      .drop("name")
+      .drop("id")
+      .drop("host_name")
+      .drop("last_review")
+    df1.createOrReplaceTempView("df1")
 
-    } catch {
-      case e1: IllegalArgumentException => print("Fail to save the file:" + e1)
-      case e2: RuntimeException => print("Fail to save the file:" + e2)
-      case e3: Exception => print("Fail to save the file:" + e3)
-    }
+    // Process the outliers
+    //    df1.createOrReplaceTempView("df1")
+    //    val outliersDF = spark.sql("SELECT * FROM df1 WHERE latitude > 41")
+    //    outliersDF.createOrReplaceTempView("outliersDF")
+    //    val othersDF = spark.sql("SELECT * FROM df1 WHERE latitude <= 41")
+    //    othersDF.createOrReplaceTempView("othersDF")
+    //    othersDF
+    df1
   }
 
-  def saveOutputResult(result: DataFrame, path: String): Unit = {
-    try{
-      //      repartition (preferred if upstream data is large, but requires a shuffle)
-      //      coalesce(1)(can use when fit all the data into RAM on one worker thus)
-      result.repartition(1).write.format("com.databricks.spark.csv").option("header", "true").save(path)
-    }catch{
-      case e1:IllegalArgumentException=> print("fail to save the data into csv:"+e1)
-      case e2:RuntimeException => print("fail to save the data into csv:"+e2)
-      case e3: Exception =>print("fail to save the data into csv:"+e3)
-    }
+  def processForRegression(df: DataFrame): DataFrame = {
+    val df1 = df.drop("name")
+      .drop("id")
+      .drop("host_name")
+      .drop("last_review")
+      .drop("host_id")
+      .drop("neighbourhood") //optional
+      .drop("reviews_per_month") //optional
+    df1.createOrReplaceTempView("df1")
+
+    spark.sql("SELECT * FROM df1 WHERE latitude <= 41")
   }
 
-  // Change the saved csv folder to single csv file
-  def changeFilePath(oldFile: String, newFile: String): Unit = {
-    val sc: SparkContext = spark.sparkContext
-    val fs = FileSystem.get(sc.hadoopConfiguration)
-    val file = fs.globStatus(new Path(oldFile + "/part*"))(0).getPath().getName()
-    fs.rename(new Path(oldFile + "/" + file), new Path(newFile))
-    fs.delete(new Path(oldFile), true)
+  def processForClassification(df: DataFrame): DataFrame = {
+    val df1 = df.drop("name")
+      .drop("id")
+      .drop("host_name")
+      .drop("last_review")
+      .drop("host_id")
+      .drop("neighbourhood") //optional
+      .drop("reviews_per_month") //optional
+    df1.createOrReplaceTempView("df1")
+    spark.sql("SELECT * FROM df1 WHERE latitude <= 41")
   }
+
+
+
+
 }
