@@ -11,7 +11,7 @@ object DataAnalysisRegressionProcesses {
     val dataSet = DAC.processForRegression(DAC.loadData("AB_NYC_2019.csv")).cache()
     val categoricalFeatures = Seq("neighbourhood_group", "room_type" )
     val numericFeatures = Seq("latitude",
-      "longtitude",
+      "longitude",
       "price",
       "minimum_nights",
       "number_of_reviews",
@@ -27,7 +27,7 @@ object DataAnalysisRegressionProcesses {
     import sc.implicits._
 
 
-    val featureColumns = Array("latitude","longtitude","reviews_per_month","price")
+    val featureColumns = Array("latitude","longitude","reviews_per_month","price")
 
     val indexLabelColunm = ""
 
