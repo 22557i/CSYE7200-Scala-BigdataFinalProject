@@ -1,6 +1,5 @@
 import org.apache.spark.ml.feature.{LabeledPoint, StringIndexer}
 import org.apache.spark.ml.linalg.Vectors
-import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types.{DoubleType, IntegerType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
@@ -18,19 +17,53 @@ class DataAnalysisController {
 
       val parsedData = dataSet1.map{line=>
         val parts = line.split(",")
-        LabeledPoint(parts(0).toDouble,
-          Vectors.dense(parts(1).toDouble
-            ,parts(2).toDouble
-            ,parts(3).toDouble
-            ,parts(4).toDouble
-            ,parts(5).toDouble
-            ,parts(6).toDouble
-            ,parts(7).toDouble
-            ,parts(8).toDouble
-            ,parts(9).toDouble
+        LabeledPoint(parts(0).toDouble,//price - label
+          Vectors.dense(
+//            parts(1).toDouble//features: latitude
+//            ,parts(2).toDouble//longitude
+            parts(3).toDouble//minimum_night
+            ,parts(4).toDouble//number_of_reviews
+            ,parts(5).toDouble//reviews_per_month
+            ,parts(6).toDouble//caculated_host_listings_count
+            ,parts(7).toDouble//availability_365
+            //Neighborhood_ group
+            ,parts(8) match {
+              case "1"=> 1.toDouble//is Brooklyn
+              case _ =>0.toDouble
+            }
+            ,parts(8) match {
+              case "0"=> 1.toDouble//is Manhattan
+              case _ =>0.toDouble
+            }
+            ,parts(8) match {
+              case "2"=>1.toDouble//is Queens
+              case _ =>0.toDouble
+            }
+            ,parts(8) match {
+              case "3"=> 1.toDouble//is Bronx
+              case _ =>0.toDouble
+            }
+            ,parts(8) match {
+              case "4"=> 1.toDouble//is Staten Island
+              case _ =>0.toDouble
+            }
+            //Room type
+            ,parts(9) match {
+              case "0" => 1.toDouble// is entire room/apt
+              case _ => 0.toDouble
+            }
+            ,parts(9) match {
+              case "1" => 1.toDouble// is private room
+              case _ => 0.toDouble
+            }
+            ,parts(9) match {
+              case "2" => 1.toDouble// is shared room
+              case _ => 0.toDouble
+            }
           )
-          )
+        )
       }.toDF("label","features")
+
     parsedData.show()
     parsedData
   }
@@ -53,6 +86,7 @@ class DataAnalysisController {
       .drop("last_review")
       .drop("neighbourhood")
       .drop("last_review")
+      .drop("final")
     val catalog_features = Array("neighbourhood_group","room_type")
     for(cf<-catalog_features) {
       val indexer = new StringIndexer()

@@ -1,15 +1,11 @@
 
 import org.apache.log4j.{Level, Logger}
-import org.apache.parquet.format.IntType
-import org.apache.spark
-import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel}
-import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
-import org.apache.spark.ml.feature.{FeatureHasher, StringIndexer}
-import org.apache.spark.ml.regression.{LinearRegression, LinearRegressionModel}
-import org.apache.spark.mllib.regression.LinearRegressionWithSGD
-import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.types.DoubleType
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel, RandomForestClassifier}
+import org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, RegressionEvaluator}
+import org.apache.spark.ml.regression.{LinearRegression, LinearRegressionModel, RandomForestRegressionModel, RandomForestRegressor}
+import org.apache.spark.mllib.evaluation.MulticlassMetrics
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 
 object DataAnalysisRegressionProcesses {
   val DAC = new DataAnalysisController
@@ -17,7 +13,7 @@ object DataAnalysisRegressionProcesses {
   def main(args: Array[String]): Unit = {
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
-    Logger.getRootLogger().setLevel(Level.ERROR) //这里是用来抑制一大堆log信息的.
+    Logger.getRootLogger().setLevel(Level.ERROR)
 
 
     DAC.spark.sparkContext.setLogLevel("ERROR")
@@ -25,29 +21,15 @@ object DataAnalysisRegressionProcesses {
     val hadoopConf = DAC.spark.sparkContext.hadoopConfiguration
     hadoopConf.set("fs.hdfs.impl", classOf[org.apache.hadoop.hdfs.DistributedFileSystem].getName)
     hadoopConf.set("fs.file.impl", classOf[org.apache.hadoop.fs.LocalFileSystem].getName)
+//    DAC.storeCSVAfterClean(DAC.OLD_PATH)
     var rdd= DAC.spark.sparkContext.parallelize(List("------------先大致看下数据-----------------"))
     rdd.collect().foreach(println)
-
     val df = DAC.loadData(DAC.PATH+".csv")
-    val numIterations = 100
-    val stepSize = 0.1
-    val lr = new LinearRegression()
-      .setMaxIter(numIterations)
-      .setRegParam(0.1)
-      .setElasticNetParam(0.1)
-
-    var model  = lr.fit(df)
-
-    println(s"Coefficients: ${model.coefficients} Intercept: ${model.intercept}")
-
-    val trainingSummary = model.summary
-    println(s"numIterations: ${trainingSummary.totalIterations}")
-    println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
-    trainingSummary.residuals.show()
-    println(s"RMSE: ${trainingSummary.rootMeanSquaredError}")
-    println(s"r2: ${trainingSummary.r2}")
-    trainingSummary.predictions.show()
-
+    val splited = df.randomSplit(Array(0.8,0.2),666)
+    val train = splited(0)
+    val test = splited(1)
+    val rfrModel = randomForestRegressionModelGenerator(train,test,DAC.spark)
+    val linearModel = linearRegressionModelGenerator(train,test,DAC.spark)
     DAC.spark.stop()
 
     //---------------------------------------------------------
@@ -80,55 +62,94 @@ object DataAnalysisRegressionProcesses {
 
   }
 
-  def logisticRegressionProcess(logisticRegressionModel: LogisticRegressionModel) :Unit = {
+  def logisticRegModelGenerator(train:DataFrame,test:DataFrame ,sc: SparkSession) : LogisticRegressionModel ={
 
-  }
-  def logisticRegModelGenerator(df:DataFrame ,sc: SparkSession) : LogisticRegressionModel ={
-    import sc.implicits._
-
-    val splitSeed = 666
-    val Array(trainData,testData) = df.randomSplit(Array(0.8,0.2),splitSeed)
+    val numIterations = 10
     val lr = new LogisticRegression()
-      .setMaxIter(370)
-      .setRegParam(0.01)
-      .setElasticNetParam(0.92)
-      .setFeaturesCol("feature")
-      .setPredictionCol("pre_result")
-      .setLabelCol("price")
+      .setMaxIter(numIterations)
+      .setRegParam(0.3)
+      .setElasticNetParam(0)
+      .setLabelCol("label")
+      .setFeaturesCol("features")
+      .setPredictionCol("prediction")
 
-    val model_lr = lr.fit(trainData)
-    println(s"每个特征对应系数: ${model_lr.coefficients} 截距: ${model_lr.intercept}")
-    val predictions = model_lr.transform(testData)
-    predictions.show(30)
-    val evaluator = new BinaryClassificationEvaluator()
-      .setLabelCol("price")
-      .setRawPredictionCol("rawPrediction")
-      .setMetricName("areaUnderROC")
 
-    val accuracy = evaluator.evaluate(predictions)
 
-    val lp = predictions.select(s"label", s"prediction")
-    val counttotal = predictions.count()
-    val correct = lp.filter($"label" === $"prediction").count()
-    val wrong = lp.filter(!($"label" === $"prediction")).count()
-    val truep = lp.filter($"prediction" === 0.0).filter($"label" === $"prediction").count()
-    val falseN = lp.filter($"prediction" === 0.0).filter(!($"label" === $"prediction")).count()
-    val falseP = lp.filter($"prediction" === 1.0).filter(!($"label" === $"prediction")).count()
-    val ratioWrong = wrong.toDouble / counttotal.toDouble
-    val ratioCorrect = correct.toDouble / counttotal.toDouble
+    var model  = lr.fit(train)
 
-    println(s"Count Total: $counttotal")
-    println(s"Correct: $correct")
-    println(s"Wrong: $wrong")
-    println(s"True Positives: $truep")
-    println(s"False Negatives: $falseN")
-    println(s"False Positives: $falseP")
-    println(s"Ratio of wrong results: $ratioWrong")
-    println(s"Ration of correct results: $ratioCorrect")
-    println(s"Accuracy is:  $accuracy")
-    model_lr
+    //    println(s"Coefficients: ${model.coefficients} Intercept: ${model.intercept}")
+    val predictions = model.transform(test)
+    predictions.show(10)
+
+    val predictionRdd = predictions.select("label","prediction").rdd.map{
+      case Row(prediction:Double, label:Double)=>(prediction,label)
+    }
+    val metrics = new MulticlassMetrics(predictionRdd)
+    val accuracy = metrics.accuracy
+
+    val weightedPrecision = metrics.weightedPrecision
+
+    val weightedRecall = metrics.weightedRecall
+
+    val f1 = metrics.weightedFMeasure
+
+    println(s"LR评估结果：\n分类正确率：${accuracy}\n加权正确率：${weightedPrecision}\n加权召回率：${weightedRecall}\nF1值：${f1}")
+    val trainingSummary = model.summary
+    println(s"numIterations: ${trainingSummary.totalIterations}")
+    println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
+    //trainingSummary.residuals.show()
+    //    println(s"RMSE: ${trainingSummary.r}")
+    //    println(s"r2: ${trainingSummary.r2}")
+    trainingSummary.predictions.show()
+    model
   }
-//  def linearRegressionProcess(df:DataFrame, sc:SparkSession): LinearRegressionModel={
+
+  def randomForestRegressionModelGenerator(train:DataFrame,test:DataFrame ,sc: SparkSession): RandomForestRegressionModel = {
+    val rf = new RandomForestRegressor()
+      .setLabelCol("label")
+      .setFeaturesCol("features")
+      .setNumTrees(20)
+    val pipeline = new Pipeline()
+      .setStages(Array(rf))
+
+    val model = pipeline.fit(train)
+    val predictions = model.transform(test)
+    predictions.select("prediction", "label", "features").show(5)
+
+    // Select (prediction, true label) and compute test error.
+    predictions.show()
+    val evaluator = new RegressionEvaluator()
+      .setLabelCol("label")
+      .setPredictionCol("prediction")
+      .setMetricName("rmse")
+    val rmse = evaluator.evaluate(predictions)
+    println("Root Mean Squared Error (RMSE) on test data = " + rmse)
+
+
+    val rfModel = model.stages(0).asInstanceOf[RandomForestRegressionModel]
+
+    //println("Learned regression forest model:\n" + rfModel.featureImportances)
 //
-//  }
+//    rf.fit(train)
+      rfModel
+  }
+
+  def linearRegressionModelGenerator(train:DataFrame,test:DataFrame, sc:SparkSession) : LinearRegressionModel = {
+    val lr = new LinearRegression()
+      .setMaxIter(10000)
+      .setRegParam(0.3)
+      .setElasticNetParam(0.8)
+
+    val linearModel = lr.fit(train)
+    println(s"Coefficients: ${linearModel.coefficients} Intercept: ${linearModel.intercept}")
+
+    val trainingSummary = linearModel.summary
+    println(s"numIterations: ${trainingSummary.totalIterations}")
+    println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
+    trainingSummary.residuals.show()
+    println(s"RMSE: ${trainingSummary.rootMeanSquaredError}")
+    println(s"r2: ${trainingSummary.r2}")
+    trainingSummary.predictions.show()
+    linearModel
+  }
 }
