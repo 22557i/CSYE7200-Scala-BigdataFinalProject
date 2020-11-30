@@ -22,6 +22,7 @@ object DataAnalysisRegressionProcesses {
     hadoopConf.set("fs.hdfs.impl", classOf[org.apache.hadoop.hdfs.DistributedFileSystem].getName)
     hadoopConf.set("fs.file.impl", classOf[org.apache.hadoop.fs.LocalFileSystem].getName)
 //    DAC.storeCSVAfterClean(DAC.OLD_PATH)
+
     var rdd= DAC.spark.sparkContext.parallelize(List("------------先大致看下数据-----------------"))
     rdd.collect().foreach(println)
     val df = DAC.loadData(DAC.PATH+".csv")
@@ -32,33 +33,6 @@ object DataAnalysisRegressionProcesses {
     val linearModel = linearRegressionModelGenerator(train,test,DAC.spark)
     DAC.spark.stop()
 
-    //---------------------------------------------------------
-    //Start
-  // var dataSet = .cache()
-//    val categoricalFeatures = Seq("neighbourhood_group", "room_type" )
-////    val numericFeatures = Seq("latitude",
-////      "longitude",
-////      "price",
-////      "minimum_nights",
-////      "number_of_reviews",
-////      "calculated_host_listings_count",
-////      "availability_365")
-//
-//    for(cata<- categoricalFeatures){
-//      val stringModel = new StringIndexer()
-//        .setInputCol(cata)
-//        .setOutputCol(cata.concat("_index"))
-//        .fit(dataSet)
-//
-//      val dataSet_enriched = stringModel.transform(dataSet)
-//      dataSet = dataSet_enriched
-//
-//    }
-//    dataSet.show()
-//
-//
-//    val lr_model = logisticRegModelGenerator(dataSet,DAC.spark)
-     DAC.spark.stop()
 
   }
 

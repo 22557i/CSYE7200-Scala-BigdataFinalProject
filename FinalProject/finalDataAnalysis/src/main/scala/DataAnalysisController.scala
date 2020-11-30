@@ -67,6 +67,7 @@ class DataAnalysisController {
     parsedData.show()
     parsedData
   }
+
   def storeCSVAfterClean(file:String) :Unit ={
     val dataSet = spark.read.
       option("header", "true")
