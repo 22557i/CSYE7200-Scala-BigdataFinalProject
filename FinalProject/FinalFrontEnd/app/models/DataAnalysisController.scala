@@ -24,6 +24,8 @@ object DataAnalysisController {
       .toDF()
       .cache()
       .withColumn("price",col("price").cast(DoubleType))
+      .withColumn("reviews_per_month",col("reviews_per_month").cast(DoubleType))
+      .withColumn("number_of_reviews",col("number_of_reviews").cast(DoubleType))
     dataSet
   }
   def loadData(file: String):DataFrame = {

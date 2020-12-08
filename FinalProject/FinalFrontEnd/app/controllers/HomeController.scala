@@ -5,6 +5,9 @@ import play.api.mvc._
 import models._
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
+import java.text.SimpleDateFormat
+import java.util.Date
+
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
@@ -22,6 +25,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   def index() = Action{ implicit request: Request[AnyContent] =>
     Ok(views.html.index(data))
+  }
+
+
+  def tables() = Action{ implicit request: Request[AnyContent] =>
+    Ok(views.html.tables(data))
+  }
+  def forms() = Action{ implicit request: Request[AnyContent] =>
+    Ok(views.html.forms())
   }
 
 

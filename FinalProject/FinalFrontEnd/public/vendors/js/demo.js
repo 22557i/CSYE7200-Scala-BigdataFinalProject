@@ -2,7 +2,7 @@
 Circles.create({
 	id:           'task-complete',
 	radius:       75,
-	value:        80,
+	value:        93,
 	maxValue:     100,
 	width:        8,
 	text:         function(value){return value + '%';},
@@ -30,8 +30,8 @@ $.notify({
 // monthlyChart
 
 Chartist.Pie('#monthlyChart', {
-	labels: ['50%', '20%', '30%'],
-	series: [50, 20, 30]
+	labels: ['Shared room-2.37%', 'Entire room/apt - 51.97%', 'Private room - 45.66%'],
+	series: [2.37, 51.97, 45.66]
 }, {
 	plugins: [
 	Chartist.plugins.tooltip()
@@ -56,10 +56,9 @@ var chart = new Chartist.Line('#trafficChart', {
 
 // salesChart
 var dataSales = {
-	labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	labels: ['Williamsburg', 'Bedford-Stuyvesant', 'Harlem', 'Bushwick', 'Upper West Side', 'Hells Kitchen', 'East Village ', 'Upper East Side', 'Crown Heights', 'Midtown'],
 	series: [
-	[5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-	[3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+		[3920,3714,2658,2465,1971,1958,1853,1798,1564,1545]
 	]
 }
 
@@ -161,3 +160,87 @@ $(".mapcontainer").mapael({
 				}
 			},
 		});
+var map, geocoder,ismarker=0,marker;
+function initialize() {
+	var latlng = new google.maps.LatLng(39.904214, 116.407413);
+	var options = {
+		zoom: 11,
+		center: latlng,
+		disableDefaultUI: true,
+		panControl: true,
+		zoomControl: true,
+		mapTypeControl: true,
+		scaleControl: true,
+		streetViewControl: false,
+		overviewMapControl: true,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById("map_canvas"), options);
+	geocoder = new google.maps.Geocoder();
+	google.maps.event.addListener(map, 'click', function(event) {
+		if(ismarker==1){
+			ismarker=2;
+			placeMarker(event.latLng);
+		}
+	});
+}
+function placeMarker(location) {
+	marker = new google.maps.Marker({
+		position: location,
+		map: map,
+		draggable:true
+	});
+	var infowindow = new google.maps.InfoWindow({
+		content: "标记是可以拖动的"
+	});
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(marker.get('map'), marker);
+	});
+}
+function search(address) {
+	if (!map) return;
+	geocoder.geocode({address : address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			map.setZoom(11);
+			map.setCenter(results[0].geometry.location);
+		} else {
+			alert("Invalid address: " + address);
+		}
+	});
+}
+$("#addmarker").click(function(){
+	if(ismarker==2){
+		art.dialog({
+			title:'添加失败',
+			content:'标记已经存在或者即将存在,请删除后标记后重新添加',
+			lock:true,
+			ok:true,
+			cancel:true
+		})
+	}else{
+		art.dialog({
+			title:'添加标记',
+			content:'现在单击地图任意一点即添加标记,<font color=red>标记是可拖动</font>,请把标记移到合适的位置',
+			lock:true,
+			ok:function(){
+				ismarker=1;
+			},
+			cancel:true
+		})
+		ismarker=0;
+	}
+})
+$("#deletemarker").click(function(){
+
+	art.dialog({
+		title:'删除标记',
+		content:'你已经删除了标记',
+		lock:true,
+		ok:function(){
+			marker.setMap(null);
+			ismarker=0;
+		},
+		cancel:true
+	})
+
+})
