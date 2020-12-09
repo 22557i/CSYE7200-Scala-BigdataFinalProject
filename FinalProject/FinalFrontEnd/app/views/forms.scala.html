@@ -1,3 +1,4 @@
+@(userForm: Form[BasicForm])(implicit request: RequestHeader,messagesProvider: MessagesProvider)
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,7 +170,7 @@
 						<li class="nav-item">
 							<a href="index">
 								<i class="la la-dashboard"></i>
-								<p>Dashboard</p>
+								<p>Index</p>
 								<span class="badge badge-count">5</span>
 							</a>
 						</li>
@@ -220,11 +221,7 @@
 										</div>
 										<div class="form-group has-success">
 											<label for="successInput">Host Id</label>
-											<input type="text" id="successInput" value="Success" class="form-control" placeholder="1210-2020">
-										</div>
-										<div class="form-group has-error has-feedback">
-											<label for="errorInput">Error Input</label>
-											<input type="text" id="errorInput" value="Error" class="form-control">
+											<input type="text" id="successInput" value="1210-2020" class="form-control" placeholder="1210-2020">
 										</div>
 										<div class="form-group">
 											<label for="disableinput">Password</label>
@@ -245,11 +242,8 @@
 											<label class="control-label">
 												Last Review
 											</label> <!----> <p class="form-control-static">12/09/2020</p> <!---->  <!----></div>
-										<label class="control-label">
-												Number of reviews
-										</label> <!----> <p class="form-control-static">599</p> <!---->  <!----></div>
 											<div class="form-group">
-												<label for="exampleFormControlSelect1">House Listing</label>
+												<label for="exampleFormControlSelect1">House listing number</label>
 												<select class="form-control" id="exampleFormControlSelect1">
 													<option>1</option>
 													<option>2</option>
@@ -272,9 +266,6 @@
 												</label>
 											</div>
 										</div>
-										<div class="card-action">
-											<button class="btn btn-success">Submit</button>
-										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -283,6 +274,7 @@
 											<div class="card-title">Predict your listing price!</div>
 										</div>
 										<div class="card-body">
+											<!--
 											<div class="form-group">
 												<label for="House Name">House Name</label>
 												<input type="text" class="form-control input-square" id="House Name">
@@ -322,11 +314,18 @@
 												<textarea class="form-control" id="comment" rows="5" placeholder="Like the size of area, amenities, or furniture.">
 
 												</textarea>
-											</div>
+											</div> -->
 										</div>
 										<div class="card-action">
+											@helper.form(action = helper.CSRF(routes.HomeController.simpleFormPost2())) {
+												@helper.inputText(userForm("House Name"),Symbol("class") -> "form-control")
+												@helper.select(userForm("NeighbourhoodGroup"),Seq(("1","Staten Island"),("2","Queens"),("3","Manhattan"),("4","Brooklyn"),("5","Bronx")),Symbol("class") -> "form-control")
+												@helper.select(userForm("Neighbourhood"),Seq(("1","Private room"),("2","Entire home/apt"),("3","Shared room")),Symbol("class") -> "form-control")
+												@helper.inputText(userForm("MinimumNights"),Symbol("class") -> "form-control")
+												@helper.inputText(userForm("AvaDays"),Symbol("class") -> "form-control")
+												@helper.textarea(userForm("Description"),Symbol("class") -> "form-control"))
+
 											<button class="btn btn-success">Submit</button>
-											<button class="btn btn-danger">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -392,3 +391,4 @@
 <script src="assets/vendors/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="assets/vendors/js/ready.min.js"></script>
 </html>
+}

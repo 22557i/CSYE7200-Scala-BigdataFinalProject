@@ -15,6 +15,7 @@ import java.util.Date
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) with play.api.i18n.I18nSupport {
   val data :DataFrame  = DataAnalysisController.loadBasicData(DataAnalysisController.OLD_PATH);
+//  val predictModel = DataAnalysisRegressionProcesses.randomForestRegressionModelGenerator()
   /**
    * Create an Action to render an HTML page.
    *
@@ -32,8 +33,29 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.tables(data))
   }
   def forms() = Action{ implicit request: Request[AnyContent] =>
-    Ok(views.html.forms())
+    Ok(views.html.forms(BasicForm.form))
   }
+  def simpleFormPost2() = Action { implicit request: Request[AnyContent] =>
+    BasicForm.form.bindFromRequest.fold(
+      formWithErrors => {
+        Ok(views.html.main("resultList"))
+      },
+      formData => {
+        val formData: BasicForm = BasicForm.form.bindFromRequest.get // Careful: BasicForm.form.bindFromRequest returns an Option
+        //println(formData.Year.toString + "   "+ formData.CrimeType.toUpperCase);
+
+        var resultList: List[List[String]] = List()
+
+       // resultList = test(formData)
+        Ok(views.html.main("resultList"))
+      }
+    )
+
+  }
+
+
+
+
 
 
 //  def index() = Action { implicit request: Request[AnyContent] =>

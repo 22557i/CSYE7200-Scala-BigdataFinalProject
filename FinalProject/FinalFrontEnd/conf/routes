@@ -16,4 +16,4 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET     /tables                     controllers.HomeController.tables
 GET     /forms                      controllers.HomeController.forms
-      
+POST    /simpleForm2                controllers.HomeController.simpleFormPost2

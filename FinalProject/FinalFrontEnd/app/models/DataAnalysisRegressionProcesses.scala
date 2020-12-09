@@ -78,7 +78,11 @@ object DataAnalysisRegressionProcesses {
     model
   }
 
-  def randomForestRegressionModelGenerator(train:DataFrame,test:DataFrame ,sc: SparkSession): RandomForestRegressionModel = {
+  def randomForestRegressionModelGenerator(): RandomForestRegressionModel = {
+    val df = DataAnalysisController.loadData(DataAnalysisController.PATH+".csv")
+    val splited = df.randomSplit(Array(0.8,0.2),666)
+    val train = splited(0)
+    val test = splited(1)
     val rf = new RandomForestRegressor()
       .setLabelCol("label")
       .setFeaturesCol("features")
