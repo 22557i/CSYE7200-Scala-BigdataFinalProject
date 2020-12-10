@@ -5,7 +5,7 @@
 
 ## Group Member
 
-** Hao Wu **
+**Hao Wu**
 001443861
 
 ### Source code
