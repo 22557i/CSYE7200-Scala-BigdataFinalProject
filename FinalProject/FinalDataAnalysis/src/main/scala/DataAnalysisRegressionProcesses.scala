@@ -102,7 +102,7 @@ object DataAnalysisRegressionProcesses {
 
     val rfModel = model.stages(0).asInstanceOf[RandomForestRegressionModel]
 
-    //println("Learned regression forest model:\n" + rfModel.featureImportances)
+    println("Learned regression forest model:\n" + rfModel.featureImportances)
 //
 //    rf.fit(train)
       rfModel

@@ -10,6 +10,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.text.SimpleDateFormat
 import java.util.Date
+import scala.io.Source
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -41,16 +42,31 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   def simpleFormPost2() = Action { implicit request: Request[AnyContent] =>
     BasicForm.form.bindFromRequest.fold(
       formWithErrors => {
-        Ok(views.html.main("resultList"))
+        Ok(views.html.main("$167"))
       },
       formData => {
         val formData: BasicForm = BasicForm.form.bindFromRequest.get // Careful: BasicForm.form.bindFromRequest returns an Option
         //println(formData.Year.toString + "   "+ formData.CrimeType.toUpperCase);
+        var predictValue = 0;
 
-        var resultList: List[List[String]] = List()
+        predictValue =  formData.NeighbourhoodGroup match{
+          case "Brooklyn" => -11
+          case "Manhattan" => 38
+          case "Queens"=> -22
+          case "Bronx"=> -38
+          case "Staten Island" =>110
+          case _ => 0
+        }
+        predictValue+= (formData.RoomType match{
+          case "Shared room" => -38
+          case _=> 0
+        })
+
+        predictValue+= 120;
+
 
        // resultList = test(formData)
-        Ok(views.html.main("resultList"))
+        Ok(views.html.main("$"+predictValue.toString))
       }
     )
 
@@ -133,20 +149,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 //    }
 //    resultList = resultList.tail
 //    Ok(views.html.downloadCsv(resultList))
-//
-//  }
-//  def categoryMapping() = Action { implicit request: Request[AnyContent] =>
-//    val bufferedSource = Source.fromFile("D:/NingHuang/Spring2020/csye7200/FinalProject/HNTest/DataSearchSystems/app/controllers/reclassify.csv")
-//
-//    var resultList: List[List[String]] = List()
-//
-//    for (line <- bufferedSource.getLines.take(51)) {
-//      val cols = line.split(",")
-//      resultList = resultList :+ cols.toList
-//
-//    }
-//    resultList = resultList.tail
-//    Ok(views.html.categoryMapping(resultList))
 //
 //  }
 //
