@@ -1,6 +1,3 @@
-# CSYE7200-Scala&BigdataFinalProject
-
----
 
 # CSYE 7200 Big data Final Project - New york City Airbnb open data
 
@@ -8,7 +5,7 @@
 
 ## Group Member
 
-** Hao Wu**
+** Hao Wu **
 001443861
 
 ### Source code
