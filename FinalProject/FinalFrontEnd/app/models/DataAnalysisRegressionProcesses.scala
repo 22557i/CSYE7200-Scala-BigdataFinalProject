@@ -23,7 +23,6 @@ object DataAnalysisRegressionProcesses {
 //    hadoopConf.set("fs.file.impl", classOf[org.apache.hadoop.fs.LocalFileSystem].getName)
 ////    DAC.storeCSVAfterClean(DAC.OLD_PATH)
 //
-//    var rdd= DAC.spark.sparkContext.parallelize(List("------------先大致看下数据-----------------"))
 //    rdd.collect().foreach(println)
 //    val df = DAC.loadData(DAC.PATH+".csv")
 //    val splited = df.randomSplit(Array(0.8,0.2),666)
@@ -79,7 +78,7 @@ object DataAnalysisRegressionProcesses {
   }
 
   def randomForestRegressionModelGenerator(): RandomForestRegressionModel = {
-    val df = DataAnalysisController.loadData(DataAnalysisController.PATH+".csv")
+    val df = DataAnalysisController.loadData("dataSet.csv")
     val splited = df.randomSplit(Array(0.8,0.2),666)
     val train = splited(0)
     val test = splited(1)

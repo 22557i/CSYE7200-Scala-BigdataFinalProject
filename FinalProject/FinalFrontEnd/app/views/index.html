@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+    <script src="gauge.min.js"></script>
+    <style>
+        #mapid { height: 700px; width:70% }
+        #metrics { height: 700px; width: 30%; align-content: center; justify-content: center}
+        .wrapper {width: 50%; float: left}
+        .wrapper p {margin:0 ; text-align: center; font-size: 22px;}
+        .gauge { width: 100% !important; height: 50% !important; padding: 5px; margin: 5px; align-content: center; justify-content: center}
+        .legend { padding: 10px; margin: 5px; align-content: center; justify-content: center; margin-bottom: 20px}
+        .legend h2 {margin: 0; text-align: center; margin-bottom: 10px}
+        .legend thead { font-size: 20px}
+        .legend table { margin: 0 auto}
+        .legend tbody tr td:first-child {width: 70px;}
+        #main {display: flex}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="mapid"></div>
+        <div id="metrics">
+            <div class="legend">
+                <h2>Legend</h2>
+                <table>
+                    <thead>
+                        <td>Icon</td>
+                        <td>Description</td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img style="height: 40px;width: 40px" src='../resources/house-yes.png'></td>
+                            <td>True Potential Address</td>
+                        </tr>
+                        <tr>
+                            <td><img style="height: 40px;width: 40px" src='../resources/house-no.png'></td>
+                            <td>True Non-Potential Address</td>
+                        </tr>
+                        <tr>
+                            <td><img style="height: 40px;width: 40px" src='../resources/house-false-positive.png'></td>
+                            <td>False Potential Address</td>
+                        </tr>
+                        <tr>
+                            <td><img style="height: 40px;width: 40px" src='../resources/house-false-negative.png'></td>
+                            <td>False Non-Potential Address</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class ="wrapper" style="justify-content: center">
+                <div style="font-size: 28px; justify-content: center; padding-left: 15px;">
+                    <p>True Positive: <span id="preview-textfield-g1"></span></p>
+                </div>
+                <canvas class="gauge" id="gauge1"></canvas>
+            </div>
+            <div class ="wrapper"  style="justify-content: center">
+                <div style="font-size: 28px; justify-content: center; padding-left: 15px;">
+                    <p>True Negative: <span id="preview-textfield-g2"></span></p>
+                </div>
+                <canvas class="gauge" id="gauge2"></canvas>
+            </div>
+            <div class ="wrapper" style="justify-content: center">
+                <div style="font-size: 28px; justify-content: center; padding-left: 15px;">
+                    <p>False Positive: <span id="preview-textfield-g3"></span></p>
+                </div>
+                <canvas class="gauge" id="gauge3"></canvas>
+            </div>
+            <div class ="wrapper" style="justify-content: center">
+                <div style="font-size: 28px; justify-content: center; padding-left: 15px;">
+                    <p>False Negative: <span id="preview-textfield-g4"></span></p>
+                </div>
+                <canvas class="gauge" id="gauge4"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+<script src ="index.js"></script>
+</html>

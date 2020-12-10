@@ -3,6 +3,9 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import models._
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.evaluation.RegressionEvaluator
+import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.text.SimpleDateFormat
@@ -15,7 +18,7 @@ import java.util.Date
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) with play.api.i18n.I18nSupport {
   val data :DataFrame  = DataAnalysisController.loadBasicData(DataAnalysisController.OLD_PATH);
-//  val predictModel = DataAnalysisRegressionProcesses.randomForestRegressionModelGenerator()
+  //val predictModel: RandomForestRegressionModel =randomForestRegressionModelGenerator()
   /**
    * Create an Action to render an HTML page.
    *
@@ -53,7 +56,39 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   }
 
+  def randomForestRegressionModelGenerator(): RandomForestRegressionModel = {
+    val df = DataAnalysisController.loadData("dataSet.csv")
+    val splited = df.randomSplit(Array(0.8,0.2),666)
+    val train = splited(0)
+    val test = splited(1)
+    val rf = new RandomForestRegressor()
+      .setLabelCol("label")
+      .setFeaturesCol("features")
+      .setNumTrees(20)
+    val pipeline = new Pipeline()
+      .setStages(Array(rf))
 
+    val model = pipeline.fit(train)
+    val predictions = model.transform(test)
+    predictions.select("prediction", "label", "features").show(5)
+
+    // Select (prediction, true label) and compute test error.
+    predictions.show()
+    val evaluator = new RegressionEvaluator()
+      .setLabelCol("label")
+      .setPredictionCol("prediction")
+      .setMetricName("rmse")
+    val rmse = evaluator.evaluate(predictions)
+    println("Root Mean Squared Error (RMSE) on test data = " + rmse)
+
+
+    val rfModel = model.stages(0).asInstanceOf[RandomForestRegressionModel]
+
+    //println("Learned regression forest model:\n" + rfModel.featureImportances)
+    //
+    //    rf.fit(train)
+    rfModel
+  }
 
 
 
