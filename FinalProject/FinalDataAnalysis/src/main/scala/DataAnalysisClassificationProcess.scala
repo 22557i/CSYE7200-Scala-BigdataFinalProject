@@ -36,12 +36,12 @@ object DataAnalysisClassificationProcess {
         .setPredictionCol("prediction")
         .fit(train)
       val results = kmeansmodel.transform(test)
-      //    results.show(false)
+        results.show(false)
 
-//      kmeansmodel.clusterCenters.foreach(
-//        center => {
-//          println("Cluster center：" + center)
-//        })
+      kmeansmodel.clusterCenters.foreach(
+        center => {
+          println("Cluster center：" + center)
+        })
       val ssd = kmeansmodel.computeCost(train)
       println("sum of squared distances of points to their nearest center when k=" + k + " -> "+ ssd)
 
