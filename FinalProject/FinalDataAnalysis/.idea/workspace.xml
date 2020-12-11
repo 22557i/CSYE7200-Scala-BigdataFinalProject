@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BspLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../../../CSYE7200Robin/assignment-lazy" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0f6a6653-be66-44cb-9667-d5ca0733951c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/scala/DataAnalysisClassificationProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/DataAnalysisClassificationProcess.scala" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1kfuck2hk6DgLrUd4545so0UcFS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.DataAnalysisClassificationProcess">
+    <configuration name="DataAnalysisClassificationProcess" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="DataAnalysisClassificationProcess" />
+      <module name="FinalDataAnalysis" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataAnalysisRegressionProcesses" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="DataAnalysisRegressionProcesses" />
+      <module name="FinalDataAnalysis" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DataAnalysisClassificationProcess" />
+        <item itemvalue="Application.DataAnalysisRegressionProcesses" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f6a6653-be66-44cb-9667-d5ca0733951c" name="Default Changelist" comment="" />
+      <created>1606104048617</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606104048617</updated>
+      <workItem from="1606104049624" duration="9899000" />
+      <workItem from="1606192727642" duration="7056000" />
+      <workItem from="1606270167742" duration="7374000" />
+      <workItem from="1606372323932" duration="449000" />
+      <workItem from="1606411966039" duration="49487000" />
+      <workItem from="1607150047462" duration="383000" />
+      <workItem from="1607556440359" duration="4859000" />
+      <workItem from="1607567874705" duration="304000" />
+      <workItem from="1607569928382" duration="5039000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

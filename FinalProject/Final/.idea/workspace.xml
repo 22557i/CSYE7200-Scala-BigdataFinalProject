@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BspLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../../../CSYE7200Robin/assignment-lazy" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dda935d7-ae36-42fd-bcdf-413015bad79b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/app/controllers/HomeController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../FinalFrontEnd/app/controllers/HomeController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/app/filters/ExampleFilter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/app/views/index.scala.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/app/views/main.scala.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/app/views/welcome.scala.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/../FinalFrontEnd/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalFrontEnd/conf/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../FinalFrontEnd/conf/application.conf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Play2Run" type="Play2FrameworkRunConfigurations" factoryName="Play 2 App" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="final" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="enableSbtGlobalPlugins" value="false" />
+      <option name="play2EnvVariables">
+        <map />
+      </option>
+      <option name="play2IsNonDefaultInstallDirUsed" value="false" />
+      <option name="play2JpdaPort" value="9999" />
+      <option name="play2JvmOptions">
+        <array>
+          <option value="-Xms512M" />
+          <option value="-Xmx1024M" />
+          <option value="-Xss1M" />
+          <option value="-XX:+CMSClassUnloadingEnabled" />
+          <option value="-XX:MaxPermSize=256M" />
+        </array>
+      </option>
+      <option name="play2NeedOpenInBrowser" value="true" />
+      <option name="play2NonDefaultInstallDir" value="" />
+      <option name="play2OpenUrl" value="http://localhost:9000" />
+      <option name="play2isAutoReloadEnabled" value="false" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dda935d7-ae36-42fd-bcdf-413015bad79b" name="Default Changelist" comment="" />
+      <created>1607050496542</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607050496542</updated>
+      <workItem from="1607050497688" duration="342000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -1,0 +1,4 @@
+[debug] Copy resource mappings: 
+[debug] 	(/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/conf/logback.xml,/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/target/scala-2.12/classes/logback.xml)
+[debug] 	(/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/conf/application.conf,/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/target/scala-2.12/classes/application.conf)
+[debug] 	(/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/conf/routes,/Users/harold/Desktop/CodeFolder/7200/CSYE7200-Scala-BigdataFinalProject/FinalProject/Final/target/scala-2.12/classes/routes)
